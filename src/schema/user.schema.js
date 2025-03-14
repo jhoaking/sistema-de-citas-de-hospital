@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export const esquemaUsuario = z.object({
-    nombre: z.string().optional().min(1),
+    nombre: z.string().optional(),
     apellido: z.string().min(1),
     edad : z.number().int().positive(),
     email : z.string().email().min(1),
