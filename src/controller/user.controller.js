@@ -18,7 +18,7 @@ export class usuarioController{
         const validar = validarUsuario(req.body);
         try {
             if(!validar.success){
-                return res.status(400).json({message : 'error en la validacion de datos'})
+                return res.status(404).json({error :JSON.parse(vali.error.message)})
             }
     
             const result = await this.modeloUsuario.crearUsuarios(validar.data);
@@ -33,7 +33,7 @@ export class usuarioController{
         try {
             const result = await this.modeloUsuario.eliminarUsuario(id);
             if(!result) {return res.status(404).json({message : "no se encontro el usuario"})}
-            res.status(201).json(result);
+            res.status(201).json({message: 'se elimino el usuario'});
         } catch (error) {
             res.status(500).json({message : 'error al eliminar usuarios', error: error.message})
         }
@@ -51,7 +51,7 @@ export class usuarioController{
             if(!result) {
                 return res.status(404).json({message : 'no se encontro el user'});
             }
-            res.status(200).json(result);
+            res.status(200).json({message : "se actualizo el user"});
         } catch (error) {
             res.status(500).json({message : 'error al actualizar usuarios', error: error.message});
         }

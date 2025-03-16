@@ -8,9 +8,9 @@ export const createCita = ({citaModel}) =>{
     const citaValidada = new citaController ({citaModel});
 
     router.get('/',citaValidada.getAll);
-    // router.post('/',);
-    // router.put('/:id',);
-    // router.delete('/:id',);
+    router.post('/',citaValidada.createCita);
+    router.put('/:id',citaValidada.updateCita);
+    router.delete('/:id',citaValidada.deleteCita);
 
     return router;
 }

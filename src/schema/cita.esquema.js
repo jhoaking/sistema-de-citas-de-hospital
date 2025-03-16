@@ -12,5 +12,5 @@ export const validarCita = (input) => {
 }
 
 export const validarPartesCita = (input) =>{
-    return citasEsquema.partial.safeParse(input);
+    return citasEsquema.partial().safeParse(input);
 }

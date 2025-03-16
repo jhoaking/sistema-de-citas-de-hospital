@@ -18,7 +18,7 @@ export class medicalController {
         const validar = validarUsuario(req.body);
         try {
             if(!validar.success){
-                return res.status(400).json({message : 'error en la validacion de datos'})
+                return res.status(404).json({error :JSON.parse(vali.error.message)})
             }
     
             const result = await this.modeloMedical.crearMedicos(validar.data);
@@ -33,7 +33,7 @@ export class medicalController {
         try {
             const result = await this.modeloMedical.eliminarMedicos(id);
             if(!result) {return res.status(404).json({message : "no se encontro el medico"})}
-            res.status(201).json(result);
+            res.status(201).json({message: 'se elimino el medico'});
         } catch (error) {
             res.status(500).json({message : 'error al eliminar medicos', error: error.message})
         }
@@ -51,7 +51,7 @@ export class medicalController {
             if(!result) {
                 return res.status(404).json({message : 'no se encontro el medico'});
             }
-            res.status(200).json(result);
+            res.status(200).json({message : "se actualizo el medico"});
         } catch (error) {
             res.status(500).json({message : 'error al actualizar medicos', error: error.message});
         }
