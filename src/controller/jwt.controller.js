@@ -1,6 +1,6 @@
-import { validarUsuario } from "../schema/esquemas";
-import { SALT_ROUNDS } from "../config";
-import jwt from 'jsonwebtoken'
+import { vaidarPartesUsuario } from "../schema/esquemas.js";
+import { SALT_ROUNDS } from "../config.js";
+import jwt from 'jsonwebtoken';
 
 export class verificacioController {
     constructor ({modelJwt}){
@@ -9,7 +9,7 @@ export class verificacioController {
 
     register = async(req,res) =>{
         try {
-            const vali = validarUsuario(req.body);
+            const vali = vaidarPartesUsuario(req.body);
             if(!vali.success){
                 return res.status(400).json({message: 'error al validar datos del register'})
             }
@@ -24,7 +24,7 @@ export class verificacioController {
 
     login = async (req,res) =>{
         try {
-            const vali = validarUsuario(req.body);
+            const vali = vaidarPartesUsuario(req.body);
             if(!vali.success){
                 return res.status(400).json({message: 'error al validar datos del login'})
             }

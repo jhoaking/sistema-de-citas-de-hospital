@@ -3,7 +3,7 @@ import z from 'zod';
 export const esquemaUsuario = z.object({
     nombre: z.string().optional(),
     apellido: z.string().min(1),
-    edad : z.number().int().positive(),
+    edad : z.number().int().positive().optional(),
     email : z.string().email().min(1),
     password: z.string().min(6)
 })
