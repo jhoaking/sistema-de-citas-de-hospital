@@ -31,24 +31,25 @@ export class verificacioController {
 
             const user = await this.modelJwt.loginUser(vali.data);
 
-            if(!result){ throw new Error('no se encontro el usuario')}
+            if(!user){ throw new Error('no se encontro el usuario')}
 
             const token = jwt.sign({
              id : user.id , nombre: user.nombre, apellido : user.apellido },
              SALT_ROUNDS,
-            { expiresIn: '48h'})
+            { expiresIn: '72h'})
 
             res
             .cookie('access_token',token, {
                 httpOnly: true, 
                 sameSite : 'strict', 
                 secure : process.env.NODE_ENV === 'production',
-                maxAge: 1000 * 60 * 60 * 48
+                maxAge: 1000 * 60 * 60 * 72
             }) 
 
             res.send({user,token})
         } catch (error) {
-            res.status(500).json({message : 'error al logear user', error: error.message});
+            console.error("Error en el login:", error);
+            res.status(500).json({ message: 'error al logear user', error: error.message });
         }
     }
 } 

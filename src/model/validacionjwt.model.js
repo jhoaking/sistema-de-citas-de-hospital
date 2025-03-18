@@ -24,18 +24,17 @@ export class modelJwt {
     static loginUser = async ({email,password}) =>{
         try {
             const [result] = await connection.query
-            ('SELECT BIN_TO_UUID(user_id), nombre,apellido,email, password FROM users WHERE email = ?',[email]);
-            if(result.length === 0) {throw new Error('datos invalidos')}
+            ('SELECT BIN_TO_UUID(user_id) AS user_id, nombre,apellido,email, password FROM users WHERE email = ?',[email]);
 
-            const user = result[0];
+            if (result.length === 0) { return null }
+
+            const user = result[0]; 
 
             if (!user.password) {
                 throw new Error('Error: el usuario no tiene una contraseña registrada');
             }
 
-           
-
-            const compararPassword = await bcrypt.compare(password, user.password);
+            const compararPassword = await bcrypt.compare(password.toString(), user.password);
             if(!compararPassword){throw new Error('contraseña invalida')}
 
             delete user.password;
