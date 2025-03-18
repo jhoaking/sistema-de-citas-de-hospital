@@ -52,4 +52,10 @@ export class verificacioController {
             res.status(500).json({ message: 'error al logear user', error: error.message });
         }
     }
+
+    logout = async (req,res) =>{
+        res
+        .clearCookie('access_token')
+        .send('sesion cerrada')
+    }
 } 

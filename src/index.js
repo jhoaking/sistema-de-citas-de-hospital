@@ -1,5 +1,6 @@
 import express from 'express';
 import {PORT} from './config.js';
+import cookieParser from 'cookie-parser';
 
 import {createUsuario} from './routes/user.routes.js'
 import { createMedico } from './routes/medical.routes.js';
@@ -12,7 +13,8 @@ import { citaModel } from './model/citas.model.js';
 import { modelJwt } from './model/validacionjwt.model.js';
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
+app.use(cookieParser());
 
 app.use('/user',createUsuario({modeloUsuario}));
 app.use('/medical',createMedico({modeloMedical}));
