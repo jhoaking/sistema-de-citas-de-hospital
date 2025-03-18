@@ -11,9 +11,10 @@ export const autenticar = ((req,res,next) =>{
     }
 
     const decoded = jwt.verify(token, SECRET_JWT_KEY); 
-    req.user.decoded
+    req.user = decoded
     next()
    } catch (error) {
-    console.error('el token ya expiro');
+    console.error('El token ya expiró');
+    return res.status(401).json({ message: 'Token inválido o expirado' });
    }
 })

@@ -1,5 +1,5 @@
 import { vaidarPartesUsuario } from "../schema/esquemas.js";
-import { SALT_ROUNDS } from "../config.js";
+import {  SECRET_JWT_KEY } from "../config.js";
 import jwt from 'jsonwebtoken';
 
 export class verificacioController {
@@ -35,15 +35,15 @@ export class verificacioController {
 
             const token = jwt.sign({
              id : user.id , nombre: user.nombre, apellido : user.apellido },
-             SALT_ROUNDS,
-            { expiresIn: '72h'})
+             SECRET_JWT_KEY,
+            { expiresIn: '48h'})
 
             res
             .cookie('access_token',token, {
                 httpOnly: true, 
                 sameSite : 'strict', 
                 secure : process.env.NODE_ENV === 'production',
-                maxAge: 1000 * 60 * 60 * 72
+                maxAge: 1000 * 60 * 60 * 48
             }) 
 
             res.send({user,token})
@@ -52,6 +52,21 @@ export class verificacioController {
             res.status(500).json({ message: 'error al logear user', error: error.message });
         }
     }
+
+    protected = async (req, res) => { 
+        try {
+            if (!req.user) {  
+                return res.status(401).json({ message: "Acceso denegado" });
+            }
+    
+            res.status(200).json({
+                message: "Ruta protegida accedida con éxito",
+                user: req.user
+            });
+        } catch (error) {
+            res.status(500).json({ message: "Error en la ruta protegida", error: error.message });
+        }
+    };
 
     logout = async (req,res) =>{
         res

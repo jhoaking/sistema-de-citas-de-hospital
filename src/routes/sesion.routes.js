@@ -7,9 +7,11 @@ export const crearSesion = ({modelJwt}) => {
 
     const sesionValidada = new verificacioController({modelJwt});
 
-    router.post('/register',autenticar,sesionValidada.register);
-    router.post('/login',autenticar,sesionValidada.login);
+    router.post('/register',sesionValidada.register);
+    router.post('/login',sesionValidada.login);
     router.get('/logout',sesionValidada.logout);
+
+    router.get('/protected',autenticar , sesionValidada.protected)
 
     return router;
 }
