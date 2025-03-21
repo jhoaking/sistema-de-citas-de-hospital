@@ -1,5 +1,5 @@
 import { validarUsuario,vaidarPartesUsuario } from "../schema/esquemas.js";
-
+// usando inyeccuion de dependencias para users
 export class usuarioController{
     constructor ({modeloUsuario})  {
         this.modeloUsuario = modeloUsuario;
