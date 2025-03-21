@@ -11,7 +11,7 @@ export class verificacioController {
         try {
             const vali = vaidarPartesUsuario(req.body);
             if(!vali.success){
-                return res.status(400).json({message: 'error al validar datos del register'})
+                return res.status(400).json({error: JSON.parse(vali.error.message)})
             }
             const user = await this.modelJwt.registerUser(vali.data);
 

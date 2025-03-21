@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { medicalController } from "../controller/medical.controller.js";
 
+
 export const  createMedico = ({modeloMedical}) =>{
     const router = Router();
 

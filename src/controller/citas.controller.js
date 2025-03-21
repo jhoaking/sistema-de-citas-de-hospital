@@ -1,4 +1,4 @@
-import { json } from 'express';
+
 import {validarCita,validarPartesCita} from '../schema/cita.esquema.js'
 
 export class citaController {
